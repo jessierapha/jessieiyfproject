@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JR Healthcare</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+    header {
+      background-color: #007bff;
+      padding: 15px 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: black;
+    }
+
+    header .logo img {
+      width: 50px;
+      height: auto;
+    }
+
+    header .logo div {
+      color: #fff;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    header nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+    header nav ul li {
+      display: inline;
+    }
+
+    header nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    header nav ul li a:hover {
+      color: #ffd700;
+    }
+
+    .hero {
+      padding: 20px 20px;
+      background-color: whitesmoke;
+      color: black;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(to right, rgba(0, 123, 255, 0.9), rgba(0, 123, 255, 0.7));
+      z-index: 1;
+    }
+
+    .hero .content {
+      max-width: 50%;
+      z-index: 2;
+    }
+
+    .hero .content h1 {
+      font-size: 48px;
+      line-height: 1.2;
+    }
+
+    .hero .content p {
+      font-size: 18px;
+      margin: 20px 0;
+    }
+
+    .hero .content form {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .hero .content input {
+      padding: 12px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      width: 300px;
+      max-width: 100%;
+    }
+
+    .hero .content button {
+      padding: 12px 20px;
+      background-color: lightslategray;
+      color: #333;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero .content button:hover {
+      background-color: lightseagreen;
+    }
+
+    .hero .image {
+      width: 40%;
+      z-index: 2;
+    }
+
+    .hero .image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .play-video-btn {
+      padding: 10px 20px;
+      background-color: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    .play-video-btn:hover {
+      background-color: darkred;
+    }
+
+    .play-video-btn:focus {
+      outline: 3px solid #fff;
+      outline-offset: 2px;
+    }
+
+    .play-video-btn:active {
+      background-color: green;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 20px;
+      background-color: lightslategray;
+      text-align: center;
+      gap: 5px;
+    }
+
+    .stats .stat {
+      flex: 1;
+    }
+
+    .stats .stat h3 {
+      font-size: 36px;
+      color: black;
+      margin-bottom: 5px;
+    }
+
+    .stats .stat p {
+      font-size: 18px;
+      color: black;
+    }
+
+    .services {
+      padding: 60px 50px;
+      text-align: center;
+      background-color: lightskyblue;
+    }
+
+    .services h2 {
+      margin-bottom: 40px;
+      font-size: 32px;
+      color: #333;
+    }
+
+    .services .service-list {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .services .service {
+      background-color: lightslategray;
+      padding: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      flex: 1;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      cursor: pointer;
+      max-width: calc(25% - 20px);
+      box-sizing: border-box;
+    }
+
+    .services .service:hover {
+      transform: translateY(-10px);
+      background-color: #333;
+      color: #fff;
+    }
+
+    .doctors {
+      padding: 60px 50px;
+      background-color: lightskyblue;
+    }
+
+    .doctors h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 32px;
+    }
+
+    .doctor-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+
+    .doctors .doctor {
+      background-color: lightslategray;
+      padding: 30px;
+      flex: 1;
+      max-width: calc(25% - 20px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .doctors .doctor img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .doctors .doctor:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .steps {
+      padding: 60px 50px;
+      text-align: center;
+    }
+
+    .steps h2 {
+      margin-bottom: 40px;
+      font-size: 32px;
+    }
+
+    .steps .step-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .steps .step {
+      background-color: #007bff;
+      padding: 30px;
+      color: whitesmoke;
+      border-radius: 10px;
+      width: calc(25% - 20px);
+      box-sizing: border-box;
+    }
+
+    .testimonials {
+      padding: 60px 50px;
+      background-color: lightskyblue;
+      text-align: center;
+    }
+
+    .testimonials h2 {
+      margin-bottom: 40px;
+      font-size: 32px;
+    }
+
+    .testimonials .testimonial {
+      width: 45%;
+      display: inline-block;
+      background-color: whitesmoke;
+      padding: 20px;
+      margin: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .testimonials .testimonial:hover {
+      transform: translateY(-5px);
+    }
+
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    footer .footer-content p {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    footer .footer-links a {
+      color: #00ff00;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    footer .footer-links a:hover {
+      color: #00ff80;
+    }
+
+    .submit-btn {
+      padding: 12px 24px;
+      background-color: lightseagreen;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      background-color: darkcyan;
+    }
+
+    footer .social-icons img {
+      width: 30px;
+      margin: 0 5px;
+      transition: transform 0.3s ease;
+    }
+
+    footer .social-icons img:hover {
+      transform: scale(1.2);
+    }
+  </style>
+</head>
+<body>
+<!-- Header -->
+<header>
+  <div class="logo">
+    <img src="images/Premium Vector _ Hand care logo template design.jpeg" alt="JR Healthcare Logo">
+    <div>MEDILOP</div>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#doctors">Doctors</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <div>
+    <a href="#" style="color: white; text-decoration: none; font-weight: 500;">LOG IN</a>
+  </div>
+</header>
+<!-- Hero Section -->
+<section id="home" class="hero">
+  <div class="content">
+    <h1>WE CARE ABOUT YOUR HEALTH.</h1>
+    <p>We believe that optimal health is the cornerstone of a vibrant and fulfilling life. Whether you’re seeking advice on nutrition, fitness, mental well-being, or preventive care, our mission is to empower you with reliable, science-based information and practical tips to help you make informed decisions about your health.</p>
+    <form>
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit">SIGN UP</button>
+    </form>
+    <button class="play-video-btn">PLAY VIDEO</button>
+  </div>
+  <div class="image">
+    <!-- Video will be inserted here by JavaScript -->
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats">
+  <div class="stat">
+    <h3>95%</h3>
+    <p>Positive Feedback</p>
+  </div>
+  <div class="stat">
+    <h3>1,500+</h3>
+    <p>Doctors Available</p>
+  </div>
+  <div class="stat">
+    <h3>3,000+</h3>
+    <p>Patients Helped</p>
+  </div>
+  <div class="stat">
+    <h3>100+</h3>
+    <p>Countries Served</p>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="services">
+  <h2>OUR BEST SERVICES</h2>
+  <div class="service-list">
+    <div class="service">AI Specialist</div>
+    <div class="service">Private & Secure</div>
+    <div class="service">Million Customers</div>
+    <div class="service">Chatbot Support</div>
+  </div>
+</section>
+
+<!-- Doctors Section -->
+<section id="doctors" class="doctors">
+  <h2>OUR TOP DOCTORS</h2>
+  <div class="doctor-grid">
+    <div class="doctor">
+      <img src="images/Cheerful Mature Doctor Posing Smiling Camera Stock Photo 1384243295 _ Shutterstock.jpeg" alt="Dr. Ninja, Ph.D. - Cardiologist">
+      <h3>Dr. Ninja, Ph.D.</h3>
+      <p>Cardiologist</p>
+      <p1>"Dr. [ninja] is a skilled cardiologist specializing in diagnosing and treating heart conditions. With extensive experience in managing cardiovascular health, Dr. [ninja] is dedicated to providing personalized care and innovative treatments to improve heart health and overall well-being."
+
+      </p1>
+    </div>
+    <div class="doctor">
+      <img src="images/Premium Photo _ Beautiful doctor pointing fingers.jpeg" alt="Dr. Gio, Ph.D. - Neurologist">
+      <h3>Dr. Gio, Ph.D.</h3>
+      <p>Neurologist</p>
+      <p1>"Dr. [gio] is a dedicated neurologist with expertise in diagnosing and treating disorders of the nervous system. Committed to advancing neurological care, Dr. [gio] offers comprehensive evaluations and personalized treatment plans to enhance brain and nervous system health."
+
+      </p1>
+    </div>
+    <div class="doctor">
+      <img src="images/Female General practitioner portrait.jpeg" alt="Dr. Joyce, Ph.D. - Pediatrician">
+      <h3>Dr. Joyce, Ph.D.</h3>
+      <p>Pediatrician</p>
+      <p1>"Dr. [joyce] is a compassionate pediatrician specializing in the health and development of children. With a focus on creating a nurturing environment, Dr. [joyce] provides expert care and guidance to support the well-being of young patients from infancy through adolescence."
+
+      </p1>
+    </div>
+    <div class="doctor">
+      <img src="images/Free Photo _ Portrait of a confident male doctor dressed in uniform.jpeg" alt="Dr. Shawn Murphy, Ph.D. - Psychiatrist">
+      <h3>Dr. Shawn Murphy, Ph.D.</h3>
+      <p>Psychiatrist</p>
+      <p1>"Dr. [shawn] is a dedicated psychiatrist specializing in mental health and emotional well-being. With a focus on accurate diagnosis and effective treatment, Dr. [shawn] offers compassionate care to help individuals manage and overcome mental health challenges."
+
+      </p1>
+    </div>
+  </div>
+</section>
+
+<!-- Steps Section -->
+<section class="steps">
+  <h2>EASY STEPS TO GET YOUR SOLUTIONS</h2>
+  <div class="step-list">
+    <div class="step">
+      <h4>1. Check Doctor's Profile</h4>
+    </div>
+    <div class="step">
+      <h4>2. Request Consultation</h4>
+    </div>
+    <div class="step">
+      <h4>3. Receive Your Consultation</h4>
+    </div>
+    <div class="step">
+      <h4>4. Get Your Solution</h4>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials">
+  <h2>WHAT PEOPLE SAY ABOUT OUR HEALTH</h2>
+  <div class="testimonial">
+    <p>"Great experience, they also offer good customer care to their clients!"</p>
+    <p>- Darius Kinuthia</p>
+  </div>
+  <div class="testimonial">
+    <p>"Fast and reliable service! They make sure your health is at a high level."</p>
+    <p>- Praise Zerah</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-content">
+    <p>WANT TO REGISTER NOW?</p>
+    <button class="submit-btn">SUBMIT NOW</button>
+  </div>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="social-icons">
+    <img src="images/Facebook Logo Vector _ Download the vector file of the Facebook logo for your design project_.jpeg" alt="Facebook">
+    <img src="images/Premium Vector _ New Twitter logo X 2023 Twitter X logo vector download.jpeg" alt="Twitter">
+    <img src="images/Ícone do instagram de logotipo de distintivo moderno _ Vetor Premium.jpeg" alt="Instagram">
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+      const videoContainer = document.querySelector('.hero .image');
+
+      // Create and append video element
+      const video = document.createElement('video');
+      video.src = 'videos/Health Ad Video Template Editable YouTube.mp4'; // Replace with your actual video file
+      video.width = 500; // Adjust the width as needed
+      video.height = 400; // Adjust the height as needed
+      video.controls = true;
+      video.autoplay = true;
+      video.loop = true; // Optional: Loop the video
+      videoContainer.innerHTML = 'videos/Health Ad Video Template  Editable    YouTube.mp4'; // Clear existing content
+      videoContainer.appendChild(video);
+    });
+
+    document.querySelector('.play-video-btn').addEventListener('click', function() {
+      const videoContainer = document.querySelector('.hero .image');
+      const existingContent = videoContainer.querySelector('video');
+
+      if (existingContent) {
+        // If video is present, play
+        existingContent.pause();
+        videoContainer.innerHTML = ''; // Clear existing video
+      } else {
+        // Create and append video element
+        const video = document.createElement('video');
+        video.src = 'videos/Health Ad Video Template  Editable    YouTube.mp4'; // Replace with your actual video file
+        video.width = 600; // Adjust the width as needed
+        video.height = 400; // Adjust the height as needed
+        video.controls = true;
+        video.autoplay = true;
+        video.loop = true; // Optional: Loop the video
+        videoContainer.innerHTML = 'videos/Health Ad Video Template  Editable    YouTube.mp4'; // Clear existing content
+        videoContainer.appendChild(video);
+      }
+    });
+  </script>
+</body>
+</html>
